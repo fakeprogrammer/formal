@@ -26,7 +26,7 @@ class Trans:
 class State:
     def __init__(self, sv: StateVars = None):
         if sv is not None:
-            self._shared_vars = copy.copy(sv)
+            self._shared_vars = copy.deepcopy(sv)
         else:
             self._shared_vars = None
         self._id = 0
@@ -38,7 +38,7 @@ class State:
 
     def clone_state(self):
         s = State(self._shared_vars)
-        s._location = copy.copy(self._location)
+        s._location = copy.deepcopy(self._location)
         return s
     
     def hash_state(self) -> int:
