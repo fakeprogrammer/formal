@@ -1,0 +1,6 @@
+__pycache__
+.vscode
+*.pdf
+*.dot
+*_work.py
+test.py
