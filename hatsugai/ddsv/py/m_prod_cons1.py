@@ -57,6 +57,7 @@ def action_inc(prop, q: StateVarsImp, p: StateVarsImp):
 def action_dec(prop, q: StateVarsImp, p: StateVarsImp):
     q.count = p.count - 1
 
+# Producer
 P0 = [{"label":"lock", "target":1, "guard":guard_lock, "action":action_lock}]
 P1 = [{"label":"wait", "target":2, "guard":guard_full, "action":action_wait},
       {"label":"produce", "target":3, "guard":guard_not_full, "action":action_inc}]
@@ -66,6 +67,7 @@ P4 = [{"label":"unlock", "target":0, "guard":ddsv.guard_true, "action":action_un
 
 P_trans = [P0, P1, P2, P3, P4, None]
 
+# Consumer
 Q0 = [{"label":"lock", "target":1, "guard":guard_lock, "action":action_lock}]
 Q1 = [{"label":"wait", "target":2, "guard":guard_empty, "action":action_wait},
       {"label":"consume", "target":3, "guard":guard_not_empty, "action":action_dec}]
