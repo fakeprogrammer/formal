@@ -2,7 +2,7 @@ import sys
 import copy
 from collections import deque, defaultdict
 
-NUM_PROCESSES = 2
+NUM_PROCESSES = 3
 HASH_LEN = 10007
 
 class StateVars:
