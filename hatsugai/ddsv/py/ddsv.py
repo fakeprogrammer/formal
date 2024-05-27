@@ -2,7 +2,6 @@ import sys
 import copy
 from collections import deque, defaultdict
 
-NUM_PROCESSES = 3
 HASH_LEN = 10007
 
 class StateVars:
@@ -24,13 +23,13 @@ class Trans:
         self._on_deadlock_path = on_deadlock_path
 
 class State:
-    def __init__(self, sv: StateVars = None):
+    def __init__(self, sv: StateVars = None, num_process = 1):
         if sv is not None:
             self._shared_vars = copy.deepcopy(sv)
         else:
             self._shared_vars = None
         self._id = 0
-        self._location = [0] * NUM_PROCESSES
+        self._location = [0] * num_process
         self._trans = None
 
     def equal(self, other) -> bool:
@@ -93,7 +92,7 @@ def ht_reg(ht: defaultdict, data: State) -> State:
 
 def print_locations_str(process: list[Process], state: State) -> str:
     s = ''
-    for j in range(NUM_PROCESSES):
+    for j in range(len(process)):
         s += f'{process[j]._name}{state._location[j]} '
     return s
 
@@ -152,7 +151,7 @@ def bfs(process: list[Process], s0: State) -> defaultdict:
         trans: Trans = path._trans
         s: State = trans._state
 
-        for i in range(NUM_PROCESSES):
+        for i in range(len(process)):
             loc = s._location[i]
             plist = process[i]._trans[loc]
             if plist is not None:
@@ -199,7 +198,7 @@ def vis_lts(filename: str, lts: Lts):
             p: State = lts._v[i]
 
             outstr = f'{p._id} [label="{p._id}\\n'
-            for j in range(NUM_PROCESSES):
+            for j in range(len(lts._process)):
                 outstr += f'{lts._process[j]._name}{p._location[j]} '
             outstr += '\\n'
             outstr += str(p._shared_vars)

@@ -1,5 +1,6 @@
 import ddsv
 
+NUM_PROCESSES = 2
 MAX_COUNT = 2
 
 class StateVarsImp(ddsv.StateVars):
@@ -79,7 +80,7 @@ Q_trans = [Q0, Q1, Q2, Q3, Q4, None]
 
 def main():
     shared_vars = StateVarsImp(0, 0, 0)
-    s0 = ddsv.State(shared_vars)
+    s0 = ddsv.State(shared_vars, NUM_PROCESSES)
 
     P = ddsv.Process("P", 1, P_trans)
     Q = ddsv.Process("Q", 2, Q_trans)

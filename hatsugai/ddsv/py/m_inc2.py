@@ -1,5 +1,7 @@
 import ddsv
 
+NUM_PROCESSES = 2
+
 class StateVarsImp(ddsv.StateVars):
     def __init__(self, x=0, t1=0, t2=0, mutex=0):
         self.x = x
@@ -48,7 +50,7 @@ Q_trans = [Q0, Q1, Q2, None]
 
 def main():
     shared_vars = StateVarsImp()
-    s0 = ddsv.State(shared_vars)
+    s0 = ddsv.State(shared_vars, NUM_PROCESSES)
 
     P = ddsv.Process("P", 0, P_trans)
     Q = ddsv.Process("Q", 0, Q_trans)
