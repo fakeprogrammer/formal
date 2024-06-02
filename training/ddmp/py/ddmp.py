@@ -2,7 +2,7 @@ from collections import deque
 
 class Process:
     def __init__(self, status=[], transitions=[]):
-        self._status = status
+        self._states = status
         self._transitions = transitions
 
 def concurrent_composition(a: Process, b: Process, sync_events: list) -> Process:
@@ -16,7 +16,7 @@ def concurrent_composition(a: Process, b: Process, sync_events: list) -> Process
     visited_set = set()
     visited = []
     transitions = []
-    q = deque([(a._status[0], b._status[0])])
+    q = deque([(a._states[0], b._states[0])])
     while q:
         sa, sb = q.popleft()
         state = (sa, sb)
